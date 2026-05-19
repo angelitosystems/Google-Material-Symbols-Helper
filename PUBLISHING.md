@@ -1,173 +1,219 @@
-# Publishing Guide — Google Material Symbols Helper
+# Publishing & Contribution Guide
 
-This guide prepares **Google Material Symbols Helper** for GitHub and Visual Studio Code Marketplace publication under **Angelito Systems S.A.C.**
+This document explains how contributors can propose changes safely and how maintainers can publish a release.
 
-Repository:
-
-```txt
-https://github.com/angelitosystems/Google-Material-Symbols-Helper.git
-```
-
-Marketplace publisher ID:
-
-```txt
-angelitosystems
-```
-
-Extension ID after publishing:
-
-```txt
-angelitosystems.google-material-symbols-helper
-```
+> Security note: never commit personal access tokens, passwords, `.env` files, npm tokens, VS Marketplace tokens, Azure DevOps tokens, or local credentials.
 
 ---
 
-## 1. Required files before publishing
+## For Contributors: How to Open a Pull Request
 
-Make sure these files exist in the project root:
+1. Fork the repository on GitHub.
+2. Clone your fork:
 
-```txt
-README.md
-CHANGELOG.md
-LICENSE
-THIRD_PARTY_NOTICES.md
-package.json
-package-lock.json
-.vscodeignore
-media/icon.png
-media/icon.svg
-out/extension.js
+```bash
+git clone <your-fork-url>
+cd Google-Material-Symbols-Helper
 ```
 
-Important:
+3. Add the original repository as `upstream`:
 
-- `package.json` must use `icon: "media/icon.png"`.
-- Marketplace publishing does not allow the package icon to be SVG.
-- `media/icon.svg` can still be used for the VS Code Activity Bar / Sidebar icon.
-- README and CHANGELOG image links should be valid HTTPS URLs or local non-SVG assets.
+```bash
+git remote add upstream https://github.com/angelitosystems/Google-Material-Symbols-Helper.git
+```
 
----
+4. Create a feature branch:
 
-## 2. Install dependencies
+```bash
+git checkout -b feat/short-description
+```
+
+5. Install dependencies:
 
 ```bash
 npm install
 ```
 
----
-
-## 3. Generate icon data
+6. Generate the Material Symbols list if needed:
 
 ```bash
 npm run generate:icons
 ```
 
----
-
-## 4. Compile
+7. Compile and validate the extension:
 
 ```bash
 npm run compile
 ```
 
----
+8. Test locally in VS Code:
 
-## 5. Test locally
-
-Open the extension project in VS Code and press:
-
-```txt
-F5
+```text
+Press F5 in VS Code
 ```
 
-Test:
-
-- Sidebar icon browser.
-- Gallery Webview.
-- Autocomplete with `ms-home`.
-- Context menu: `Google Material Symbols: Import CDN by Style`.
-- Hover preview.
-- Gutter preview.
-
----
-
-## 6. Package as VSIX
+9. Package locally before requesting review:
 
 ```bash
 npm run package
 ```
 
-Expected output example:
-
-```txt
-google-material-symbols-helper-1.3.2.vsix
-```
-
-Install locally:
+10. Commit your changes:
 
 ```bash
-code --install-extension google-material-symbols-helper-1.3.2.vsix
+git add .
+git commit -m "feat: describe your change"
+```
+
+11. Push your branch:
+
+```bash
+git push origin feat/short-description
+```
+
+12. Open a Pull Request to:
+
+```text
+angelitosystems/Google-Material-Symbols-Helper:main
 ```
 
 ---
 
-## 7. Login to VS Code Marketplace
+## Pull Request Checklist
 
-Install VSCE globally if needed:
+Before opening a PR, confirm:
 
-```bash
-npm install -g @vscode/vsce
-```
-
-Login:
-
-```bash
-vsce login angelitosystems
-```
-
-Paste the Azure DevOps Personal Access Token when prompted.
+- [ ] The extension compiles with `npm run compile`.
+- [ ] The extension can be launched with `F5`.
+- [ ] No secrets, tokens, passwords, local paths, or private IDs were committed.
+- [ ] `README.md` was updated if the user-facing behavior changed.
+- [ ] `CHANGELOG.md` was updated if this is a release-related change.
+- [ ] `THIRD_PARTY_NOTICES.md` was updated if third-party assets or dependencies were added.
+- [ ] The extension icon used in `package.json` is a PNG file, not SVG.
+- [ ] Webview assets are loaded safely with CSP and nonce where scripts are used.
+- [ ] Google Material Symbols / Material Design Icons are credited properly.
 
 ---
 
-## 8. Publish
+## Maintainer Review Flow
+
+Maintainers should review:
+
+1. Source code changes.
+2. Dependency changes.
+3. Generated icon data changes.
+4. Webview security rules.
+5. README and CHANGELOG accuracy.
+6. Third-party notices and licensing.
+7. Local compile result.
+8. Local VSIX package result.
+
+Recommended commands:
 
 ```bash
-npm run publish
-```
-
-Or publish a patch/minor version automatically:
-
-```bash
-npm run publish:patch
-npm run publish:minor
-```
-
----
-
-## 9. Push release files to GitHub
-
-```bash
-git status
-git add README.md CHANGELOG.md LICENSE THIRD_PARTY_NOTICES.md package.json package-lock.json media .vscodeignore src out
-git commit -m "Prepare Google Material Symbols Helper for Marketplace publishing"
-git push -u origin main
+npm install
+npm run generate:icons
+npm run compile
+npm run package
 ```
 
 ---
 
-## 10. GitHub release checklist
+## Safe Release Process for Maintainers
 
-After publishing the `.vsix`, create a GitHub release:
+Only maintainers with access to the official Marketplace publisher should publish releases.
 
-```txt
-Tag: v1.3.2
-Title: Google Material Symbols Helper v1.3.2
+### 1. Verify package metadata
+
+Check `package.json`:
+
+- `name`
+- `displayName`
+- `description`
+- `version`
+- `publisher`
+- `repository`
+- `license`
+- `icon`
+- `categories`
+- `keywords`
+
+The Marketplace package icon must be a PNG file and should be at least 128x128 px.
+
+### 2. Build the package
+
+```bash
+npm install
+npm run generate:icons
+npm run compile
+npm run package
 ```
 
-Attach:
+This should generate a `.vsix` file.
 
-```txt
-google-material-symbols-helper-1.3.2.vsix
+### 3. Login locally
+
+Do this only on a trusted maintainer machine:
+
+```bash
+vsce login <publisher-id>
 ```
 
-Use the `CHANGELOG.md` section for `1.3.2` as the release notes.
+When prompted, paste the Marketplace Personal Access Token.
+
+Do not write the token in this file, in GitHub Actions logs, in issues, in pull requests, or in commits.
+
+### 4. Publish
+
+```bash
+vsce publish
+```
+
+Or publish a packaged VSIX manually through the Visual Studio Marketplace publisher management page.
+
+---
+
+## Secrets Policy
+
+Never commit:
+
+```text
+.env
+*.pem
+*.key
+*.pfx
+*.cer
+*.crt
+*.token
+npm-debug.log
+.vscode/.token*
+```
+
+Never include:
+
+```text
+Azure DevOps PAT
+VS Code Marketplace token
+npm token
+GitHub token
+Personal email passwords
+Local machine paths with private usernames
+```
+
+Public information that is normally safe to include:
+
+```text
+Repository URL
+Open-source license
+Company name
+Public publisher name
+Public Marketplace extension identifier
+```
+
+---
+
+## Ownership
+
+This project is maintained by Angelito Systems S.A.C., a technology company focused on software solutions, apps, business systems, automation, and AI-assisted tools for entrepreneurs, companies, and organizations.
+
+Google Material Symbols and Material Design Icons are created and maintained by Google. This extension is not an official Google product and is not affiliated with Google.
