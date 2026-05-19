@@ -96,6 +96,10 @@ export class MaterialSymbolsSidebarProvider implements vscode.WebviewViewProvide
           await vscode.env.clipboard.writeText(data.iconName);
           vscode.window.showInformationMessage(`Nombre copiado: ${data.iconName}`);
           break;
+        case "importCdn":
+          // Delegar al comando de importación CDN existente
+          vscode.commands.executeCommand("google-material-symbols-helper.importCdnByStyle");
+          break;
         case "updateSettings":
           // Option to sync webview settings back to VS Code settings if desired
           break;

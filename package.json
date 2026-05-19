@@ -4,7 +4,7 @@
   "description": "Busca, previsualiza, autocompleta e inserta iconos de Google Material Symbols en proyectos web.",
   "version": "1.2.0",
   "publisher": "angelitosystems",
-  "icon": "media/icon.svg",
+  "icon": "media/icon.png",
   "engines": {
     "vscode": "^1.120.0"
   },

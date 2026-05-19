@@ -1,32 +1,53 @@
-body {
-    padding: 20px;
-    color: var(--vscode-foreground);
-    font-family: var(--vscode-font-family);
-    background-color: var(--vscode-editor-background);
+/* ============================================================
+   Google Material Symbols Helper – Gallery
+   Fix: body scrollea, header sticky, sin doble scroll
+   ============================================================ */
+
+:root {
+    --radius-sm: 4px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --transition: 0.15s ease;
 }
 
+*, *::before, *::after { box-sizing: border-box; }
+
+/* body es el scrollable — necesario para que el header sticky funcione */
+html, body {
+    margin: 0;
+    padding: 0;
+    color: var(--vscode-foreground);
+    font-family: var(--vscode-font-family);
+    background: var(--vscode-editor-background);
+    /* NO overflow:hidden aquí */
+}
+
+body { padding: 0 20px 40px; }
+
+/* ── Header sticky ── */
 .header {
     position: sticky;
     top: 0;
-    background: var(--vscode-editor-background);
     z-index: 100;
-    padding-bottom: 20px;
+    background: var(--vscode-editor-background);
+    padding: 16px 0 14px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    border-bottom: 1px solid var(--vscode-panel-border);
-    margin-bottom: 20px;
+    gap: 10px;
+    border-bottom: 1px solid var(--vscode-panel-border, transparent);
+    margin-bottom: 18px;
 }
 
 .title-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 19px;
+    font-weight: 600;
 }
 
 .badge {
@@ -34,65 +55,120 @@ h1 {
     color: var(--vscode-badge-foreground);
     padding: 2px 8px;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 500;
 }
 
 .search-row input {
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
+    padding: 9px 12px;
+    font-size: 13px;
     background: var(--vscode-input-background);
     color: var(--vscode-input-foreground);
-    border: 1px solid var(--vscode-input-border);
-    border-radius: 6px;
+    border: 1px solid var(--vscode-input-border, transparent);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition);
 }
+.search-row input:focus { border-color: var(--vscode-focusBorder); }
 
 .stats {
-    font-size: 12px;
-    opacity: 0.7;
+    font-size: 11px;
+    opacity: 0.6;
 }
 
+/* ── Grilla ── */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
+    gap: 14px;
 }
 
+/* ── Tarjeta ── */
 .icon-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    border: 1px solid var(--vscode-panel-border);
-    border-radius: 12px;
-    background: var(--vscode-editor-background);
+    padding: 18px 10px 14px;
+    border: 1px solid var(--vscode-panel-border, transparent);
+    border-radius: var(--radius-lg);
+    background: transparent;
     cursor: pointer;
-    transition: all 0.2s ease;
     height: 140px;
     position: relative;
     overflow: hidden;
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
 }
-
 .icon-card:hover {
     background: var(--vscode-list-hoverBackground);
     border-color: var(--vscode-focusBorder);
     transform: translateY(-2px);
 }
+.icon-card:active { transform: translateY(0); }
 
 .icon-preview {
-    font-size: 48px;
-    margin-bottom: 12px;
+    font-size: 44px;
+    margin-bottom: 10px;
+    line-height: 1;
 }
 
 .icon-name {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--vscode-descriptionForeground);
     text-align: center;
     word-break: break-all;
+    line-height: 1.3;
 }
 
-/* Material Symbols Core CSS */
+/* ── Overlay acciones ── */
+.card-actions {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--vscode-editor-background, #1e1e1e) 90%, transparent);
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+}
+.icon-card:hover .card-actions { display: flex; }
+
+.action-btn {
+    padding: 5px;
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    transition: background var(--transition);
+    text-align: center;
+}
+.action-btn:hover { background: var(--vscode-button-hoverBackground); }
+
+/* ── Cargar más ── */
+.load-more {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+button.primary {
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    padding: 9px 22px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 13px;
+    transition: background var(--transition);
+}
+button.primary:hover { background: var(--vscode-button-hoverBackground); }
+
+/* ── Material Symbols font classes ── */
 .material-symbols-outlined,
 .material-symbols-rounded,
 .material-symbols-sharp {
@@ -109,61 +185,6 @@ h1 {
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
-
 .material-symbols-outlined { font-family: 'Material Symbols Outlined'; }
-.material-symbols-rounded { font-family: 'Material Symbols Rounded'; }
-.material-symbols-sharp { font-family: 'Material Symbols Sharp'; }
-
-.card-actions {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
-}
-
-.icon-card:hover .card-actions {
-    display: flex;
-}
-
-.action-btn {
-    width: 100%;
-    padding: 6px;
-    background: var(--vscode-button-background);
-    color: var(--vscode-button-foreground);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.action-btn:hover {
-    background: var(--vscode-button-hoverBackground);
-}
-
-.load-more {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px;
-}
-
-button.primary {
-    background: var(--vscode-button-background);
-    color: var(--vscode-button-foreground);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button.primary:hover {
-    background: var(--vscode-button-hoverBackground);
-}
+.material-symbols-rounded  { font-family: 'Material Symbols Rounded'; }
+.material-symbols-sharp    { font-family: 'Material Symbols Sharp'; }
