@@ -1,0 +1,182 @@
+{
+  "name": "google-material-symbols-helper",
+  "displayName": "Google Material Symbols Helper",
+  "description": "Busca, previsualiza, autocompleta e inserta iconos de Google Material Symbols en proyectos web.",
+  "version": "1.2.0",
+  "publisher": "angelitosystems",
+  "icon": "media/icon.svg",
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "google-material-symbols-helper.openGallery",
+        "title": "Google Material Symbols: Abrir galería",
+        "category": "Google Material Symbols"
+      },
+      {
+        "command": "google-material-symbols-helper.insertIcon",
+        "title": "Google Material Symbols: Insertar icono",
+        "category": "Google Material Symbols"
+      },
+      {
+        "command": "google-material-symbols-helper.insertImport",
+        "title": "Google Material Symbols: Insertar importación",
+        "category": "Google Material Symbols"
+      },
+      {
+        "command": "google-material-symbols-helper.insertOptimizedImport",
+        "title": "Google Material Symbols: Insertar importación optimizada (icon_names)",
+        "category": "Google Material Symbols"
+      },
+      {
+        "command": "google-material-symbols-helper.copyHtml",
+        "title": "Google Material Symbols: Copiar HTML de icono",
+        "category": "Google Material Symbols"
+      },
+      {
+        "command": "google-material-symbols-helper.copyReact",
+        "title": "Google Material Symbols: Copiar React de icono",
+        "category": "Google Material Symbols"
+      },
+      {
+        "command": "google-material-symbols-helper.importCdnByStyle",
+        "title": "Google Material Symbols: Importar CDN según estilo",
+        "category": "Google Material Symbols"
+      },
+      {
+        "command": "google-material-symbols-helper.refreshEditorPreviews",
+        "title": "Google Material Symbols: Refrescar vista previa de iconos",
+        "category": "Google Material Symbols"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "google-material-symbols",
+          "title": "Google Symbols",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "google-material-symbols": [
+        {
+          "id": "google-material-symbols.sidebar",
+          "type": "webview",
+          "name": "Material Symbols"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Google Material Symbols Helper",
+      "properties": {
+        "googleMaterialSymbols.defaultStyle": {
+          "type": "string",
+          "default": "outlined",
+          "enum": [
+            "outlined",
+            "rounded",
+            "sharp"
+          ],
+          "description": "Estilo por defecto para los iconos."
+        },
+        "googleMaterialSymbols.useTailwindClasses": {
+          "type": "boolean",
+          "default": false,
+          "description": "Si es verdadero, añade clases de Tailwind al insertar el icono."
+        },
+        "googleMaterialSymbols.defaultFill": {
+          "type": "number",
+          "default": 0,
+          "enum": [0, 1],
+          "description": "Valor de 'FILL' (0 o 1)."
+        },
+        "googleMaterialSymbols.defaultWeight": {
+          "type": "number",
+          "default": 400,
+          "enum": [100, 200, 300, 400, 500, 600, 700],
+          "description": "Valor de 'wght' (peso)."
+        },
+        "googleMaterialSymbols.defaultGrade": {
+          "type": "number",
+          "default": 0,
+          "enum": [-25, 0, 200],
+          "description": "Valor de 'GRAD' (grado)."
+        },
+        "googleMaterialSymbols.defaultOpticalSize": {
+          "type": "number",
+          "default": 24,
+          "enum": [20, 24, 40, 48],
+          "description": "Valor de 'opsz' (tamaño óptico)."
+        },
+        "googleMaterialSymbols.insertAriaHidden": {
+          "type": "boolean",
+          "default": true,
+          "description": "Si es verdadero, añade aria-hidden=\"true\"."
+        },
+        "googleMaterialSymbols.enableHoverPreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Activa la vista previa visual al pasar el cursor sobre un icono."
+        },
+        "googleMaterialSymbols.enableGutterPreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Activa los iconos en el gutter junto a los números de línea."
+        },
+        "googleMaterialSymbols.maxGutterIcons": {
+          "type": "number",
+          "default": 200,
+          "description": "Número máximo de iconos a mostrar en el gutter por archivo."
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        { "command": "google-material-symbols-helper.openGallery", "when": "true" },
+        { "command": "google-material-symbols-helper.insertIcon", "when": "editorTextFocus" },
+        { "command": "google-material-symbols-helper.importCdnByStyle", "when": "editorTextFocus" },
+        { "command": "google-material-symbols-helper.refreshEditorPreviews", "when": "editorTextFocus" }
+      ],
+      "editor/context": [
+        {
+          "command": "google-material-symbols-helper.importCdnByStyle",
+          "when": "editorLangId == html || editorLangId == css || editorLangId == scss || editorLangId == typescriptreact || editorLangId == javascriptreact || editorLangId == vue || editorLangId == php || editorLangId == blade",
+          "group": "navigation@3"
+        },
+        {
+          "command": "google-material-symbols-helper.insertIcon",
+          "group": "modification@1",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "generate:icons": "ts-node src/scripts/generate-icons.ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.120.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.56.1",
+    "eslint": "^9.39.3",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "ts-node": "^10.9.2"
+  }
+}

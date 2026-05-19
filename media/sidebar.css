@@ -1,0 +1,201 @@
+:root {
+    --icon-size: 28px;
+    --card-size: 92px;
+}
+
+body {
+    padding: 10px;
+    color: var(--vscode-foreground);
+    font-family: var(--vscode-font-family);
+    background-color: var(--vscode-sideBar-background);
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.search-box {
+    margin-bottom: 12px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    background: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 4px;
+}
+
+input:focus {
+    outline: 1px solid var(--vscode-focusBorder);
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+@media (min-width: 250px) {
+    .controls {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 10px;
+    margin-bottom: 2px;
+    opacity: 0.8;
+}
+
+select {
+    width: 100%;
+    padding: 4px;
+    background: var(--vscode-dropdown-background);
+    color: var(--vscode-dropdown-foreground);
+    border: 1px solid var(--vscode-dropdown-border);
+    border-radius: 2px;
+}
+
+.stats {
+    font-size: 10px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-size), 1fr));
+    gap: 10px;
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 20px;
+}
+
+.icon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 8px;
+    background: var(--vscode-sideBar-background);
+    cursor: pointer;
+    transition: all 0.2s;
+    height: var(--card-size);
+    position: relative;
+    overflow: hidden;
+}
+
+.icon-card:hover {
+    background: var(--vscode-list-hoverBackground);
+    border-color: var(--vscode-focusBorder);
+}
+
+.icon-preview {
+    font-size: var(--icon-size);
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-name {
+    font-size: 11px;
+    margin-top: 6px;
+    color: var(--vscode-descriptionForeground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Material Symbols Core CSS */
+.material-symbols-outlined,
+.material-symbols-rounded,
+.material-symbols-sharp {
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined { font-family: 'Material Symbols Outlined'; }
+.material-symbols-rounded { font-family: 'Material Symbols Rounded'; }
+.material-symbols-sharp { font-family: 'Material Symbols Sharp'; }
+
+.load-more {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 10px;
+}
+
+button.secondary {
+    background: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+    border: none;
+    padding: 4px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+button.secondary:hover {
+    background: var(--vscode-button-secondaryHoverBackground);
+}
+
+/* Quick Actions on Hover */
+.card-actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px;
+}
+
+.icon-card:hover .card-actions {
+    display: flex;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 2px 4px;
+    font-size: 9px;
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background: var(--vscode-button-hoverBackground);
+}

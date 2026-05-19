@@ -1,0 +1,169 @@
+body {
+    padding: 20px;
+    color: var(--vscode-foreground);
+    font-family: var(--vscode-font-family);
+    background-color: var(--vscode-editor-background);
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background: var(--vscode-editor-background);
+    z-index: 100;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-bottom: 1px solid var(--vscode-panel-border);
+    margin-bottom: 20px;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.badge {
+    background: var(--vscode-badge-background);
+    color: var(--vscode-badge-foreground);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.search-row input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 6px;
+}
+
+.stats {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.icon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 12px;
+    background: var(--vscode-editor-background);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 140px;
+    position: relative;
+    overflow: hidden;
+}
+
+.icon-card:hover {
+    background: var(--vscode-list-hoverBackground);
+    border-color: var(--vscode-focusBorder);
+    transform: translateY(-2px);
+}
+
+.icon-preview {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.icon-name {
+    font-size: 12px;
+    color: var(--vscode-descriptionForeground);
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Material Symbols Core CSS */
+.material-symbols-outlined,
+.material-symbols-rounded,
+.material-symbols-sharp {
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined { font-family: 'Material Symbols Outlined'; }
+.material-symbols-rounded { font-family: 'Material Symbols Rounded'; }
+.material-symbols-sharp { font-family: 'Material Symbols Sharp'; }
+
+.card-actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+}
+
+.icon-card:hover .card-actions {
+    display: flex;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 6px;
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.action-btn:hover {
+    background: var(--vscode-button-hoverBackground);
+}
+
+.load-more {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+}
+
+button.primary {
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button.primary:hover {
+    background: var(--vscode-button-hoverBackground);
+}
